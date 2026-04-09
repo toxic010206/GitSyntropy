@@ -3,7 +3,10 @@
     "allow": [
       "Bash(wc -l \"/g/synced-pc/1_Work/projects/GitSyntropy/apps/frontend/src/components\"/*.tsx)",
       "Bash(pip install:*)",
-      "Bash(Scripts/pip install:*)"
+      "Bash(Scripts/pip install:*)",
+      "Bash(.venv/Scripts/pip install:*)",
+      "Bash(.venv/Scripts/python -c ':*)",
+      "Bash(npx astro:*)"
     ]
   }
 }
