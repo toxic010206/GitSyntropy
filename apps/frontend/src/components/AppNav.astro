@@ -1,0 +1,29 @@
+---
+const links = [
+  { href: "/", label: "Landing" },
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/assessment", label: "Assessment" },
+  { href: "/compatibility", label: "Compatibility" },
+  { href: "/workspace", label: "Workspace" },
+  { href: "/insights", label: "Insights" }
+];
+---
+
+<div class="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
+  <nav class="glass-panel rounded-none px-6 py-3 flex items-center gap-8 shadow-[4px_4px_0px_rgba(255,255,255,0.1)]">
+    <a href="/" class="flex items-center gap-2 font-bold text-xl tracking-tight transition-colors hover:text-primary">
+      <span class="material-symbols-outlined text-primary">psychology</span>
+      <span class="font-display">GitSyntropy</span>
+    </a>
+    <div class="hidden lg:flex items-center gap-2">
+      {links.slice(1).map((link) => (
+        <a href={link.href} class="text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 px-3 py-1.5 rounded-full transition-colors">
+          {link.label}
+        </a>
+      ))}
+    </div>
+    <a href="/auth" class="btn btn-primary text-sm px-4 py-2">
+      Login
+    </a>
+  </nav>
+</div>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitSyntropy | Team Resilience Engine</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Landing specific styles */
+        .hero-section {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero-glow {
+            position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(128,0,255,0.2) 0%, rgba(0,0,0,0) 70%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <nav style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-family: var(--font-hero); font-weight: 900; font-size: 1.5rem;">GIT<span style="color: var(--primary-electric)">SYNTROPY</span></div>
+        <a href="dashboard.html" class="btn btn-ghost">Sign In</a>
+    </nav>
+
+    <div class="container">
+        <section class="hero-section">
+            <div class="hero-glow"></div>
+            <h1>The <span style="color: var(--soft-peach)">heartbeat</span><br>of your engineering team.</h1>
+            <p style="margin: 1.5rem 0 2.5rem; font-size: 1.2rem;">
+                We analyze GitHub behavioral data to predict burnout, align chronotypes, and build resilient squads.
+            </p>
+            <a href="dashboard.html" class="btn btn-primary pulsate">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                Connect with GitHub
+            </a>
+        </section>
+
+        <section class="bento-grid" style="margin-bottom: 4rem;">
+            <!-- Feature 1 -->
+            <div class="card col-6">
+                <!-- Cute scribble annotation -->
+                <svg class="scribble" style="top: 20px; right: 20px; width: 50px; height: 50px;" viewBox="0 0 100 100">
+                    <path d="M10,50 Q25,25 50,50 T90,50" fill="none" stroke="var(--secondary-neon)" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <h3>Chronotype Detection</h3>
+                <p>We identify when your devs are actually productive, not just when they are online.</p>
+                <div style="margin-top: 2rem; height: 100px; background: linear-gradient(90deg, transparent 0%, rgba(128,0,255,0.5) 50%, transparent 100%); border-radius: 8px; position: relative;">
+                    <span style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); font-family: var(--font-hero);">PEAK FLOW</span>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="card col-6">
+                <h3>Resilience Scoring</h3>
+                <p>Predict team friction before it happens based on PR review sentiment and cycle times.</p>
+                <div style="margin-top: 2rem; display: flex; align-items: center; gap: 1rem;">
+                    <div style="flex: 1; height: 8px; background: #333; border-radius: 4px; overflow: hidden;">
+                        <div style="width: 85%; height: 100%; background: var(--secondary-neon);"></div>
+                    </div>
+                    <span style="font-weight: bold; color: var(--secondary-neon);">85% Safe</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

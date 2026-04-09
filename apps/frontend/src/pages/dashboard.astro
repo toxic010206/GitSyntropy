@@ -1,0 +1,10 @@
+---
+import AppNav from "@/components/AppNav.astro";
+import { DashboardClient } from "@/components/DashboardClient";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="GitSyntropy | Dashboard">
+  <AppNav />
+  <DashboardClient client:load />
+</BaseLayout>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workspace: Team Simulator</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7f00ff",
+                        "primary-glow": "rgba(127, 0, 255, 0.4)",
+                        "background-light": "#dcd4ec",
+                        "background-dark": "#121212",
+                        "surface-dark": "#1e1e24",
+                        "neon-green": "#00ff9d",
+                        "soft-peach": "#ffcab0",
+                        "lavender": "#dcd4ec",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #ffffff05 1px, transparent 1px), linear-gradient(to bottom, #ffffff05 1px, transparent 1px)",
+                    },
+                    boxShadow: {
+                        'neon': '0 0 15px rgba(127, 0, 255, 0.3)',
+                        'neon-green': '0 0 15px rgba(0, 255, 157, 0.2)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>body {
+    font-family: "Space Grotesk", sans-serif
+    }
+.body-text {
+    font-family: "Inter", sans-serif
+    }
+.glass-panel {
+    background: rgba(30, 30, 36, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08)
+    }
+.glass-panel-active {
+    background: rgba(30, 30, 36, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(127, 0, 255, 0.3);
+    box-shadow: 0 0 20px rgba(127, 0, 255, 0.15)
+    }
+.grid-bg {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)
+    }
+/* Custom Scrollbar for dark theme */
+::-webkit-scrollbar {
+    width: 6px
+    }
+::-webkit-scrollbar-track {
+    background: #121212
+    }
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px
+    }
+.dashed-border {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBNE7tfoNnxmd50iSZibK1TZSY-Hhm5OfrJNT8oc8ANnJCfzIpfXr64JyZxVd4ulKH7Qz13-OIlIPyVaXIXPGyIshOzmUswjUh_vUA1Zz1nSBev8FPS5B1_2ykuMihM6V_sLAthzHMmsoInYgPYTkpEAeqTE2IXce-nLxcSKcHEvBQ9p8p_NQvZtIcLcpCvzsbf3ZyRCPMG8KAuJhPaaybo5_i8cCMLTrRdq8W0IfzQG7_kH4Q6zWSq6t_xWELAKbWWGs4WWgVTrxM)
+    }</style>
+</head>
+<body class="bg-background-dark text-white overflow-hidden h-screen flex flex-col selection:bg-primary selection:text-white">
+<!-- Top Navigation -->
+<header class="flex-none h-16 w-full flex items-center justify-between px-6 border-b border-white/5 bg-[#141018] z-20">
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 20px;">hub</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight">Team Simulator <span class="text-white/40 font-normal ml-2 text-base">v2.4</span></h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+<div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+<span class="text-xs text-white/70 font-medium">System Online</span>
+</div>
+<div class="h-8 w-[1px] bg-white/10"></div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-bold leading-none">Alex M.</p>
+<p class="text-xs text-white/50 leading-none mt-1 group-hover:text-primary transition-colors">Engineering Manager</p>
+</div>
+<div class="w-9 h-9 rounded-full bg-cover bg-center border border-white/10" data-alt="User profile avatar of Alex M." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDCzTatoJEXm8DcfSsKimh96ja1fM-ZCyPWjtfvg5phji3rR7RJAOvuJwUIPGCFOszTaMFWXePD6pyuWGsF2_AC0CuJTx7p4MmWi14rTAmZEUFOQFqE9rL6ZTprT2kG5LXf4kqvAty20eBtfqCH5fFPCKXunIoDQdsMKMc2V3NnZJDa3hHAf2E1B9CkNjXd4Qzoa7z2R7LFCyZ5vwEdl7b4s8eLBtf7DZiRerRLFtsYMp0STYcMoZHZta_1GZGID7CZSnftbveYVNM');"></div>
+</div>
+</div>
+</header>
+<!-- Main Workspace Layout -->
+<div class="flex-1 flex overflow-hidden relative">
+<!-- Background Ambient Glows -->
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+<div class="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px]"></div>
+</div>
+<!-- Left Sidebar: Talent Inventory -->
+<aside class="w-96 flex flex-col z-10 glass-panel border-r-0 border-y-0 border-l-0 h-full">
+<div class="p-6 flex flex-col gap-6 h-full">
+<!-- Header -->
+<div>
+<h2 class="text-lg font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">groups</span>
+                        Talent Inventory
+                    </h2>
+<p class="text-white/40 text-sm mt-1">Drag members to the squad grid.</p>
+</div>
+<!-- Search & Filter -->
+<div class="flex flex-col gap-3">
+<div class="relative group">
+<input class="w-full bg-[#0a0a0a]/50 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm text-white focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all placeholder:text-white/20" placeholder="Find by skill or name..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-3 text-white/30 group-focus-within:text-primary transition-colors" style="font-size: 20px;">search</span>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<button class="bg-primary/20 text-primary border border-primary/20 px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap hover:bg-primary/30 transition-colors">All Roles</button>
+<button class="bg-white/5 text-white/60 border border-white/5 px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap hover:bg-white/10 transition-colors">Frontend</button>
+<button class="bg-white/5 text-white/60 border border-white/5 px-3 py-1 rounded-lg text-xs font-medium whitespace-nowrap hover:bg-white/10 transition-colors">Backend</button>
+</div>
+</div>
+<!-- Draggable List -->
+<div class="flex-1 overflow-y-auto -mx-2 px-2 space-y-3">
+<!-- Card 1 -->
+<div class="p-3 rounded-xl bg-[#25252b]/60 border border-white/5 hover:border-white/20 hover:bg-[#2a2a30] transition-all cursor-grab active:cursor-grabbing group relative">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-cover bg-center" data-alt="Portrait of Elena Rodriguez" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBTg3Y7JuKWLikQjStASZQCE3tyAImExzofLCiGosAiVys7X7CQdlOF29GU4KWSjSrInFdWtqs5MCmDIeYSiUKnI851cVbKSKi1YZxpzbwPIwsre3rxlWpvouaPrCwCLUwx3IUHWc-qx1ICFH6Oqoqnjb7A9-P7Xn-Mjkm6HOQC9VeuP1fyYlWuNQreFi61KY5Xz-K3tg0zvDXGOGE_pwJ1BBx_k_ZxMCJr0FUODTMDYK2KGWVUqSiAFqdMKUDsWSfMcjnkm-Jtk3c');"></div>
+<div class="flex-1 min-w-0">
+<h3 class="text-sm font-bold text-white group-hover:text-primary transition-colors">Elena Rodriguez</h3>
+<p class="text-xs text-white/50 truncate">Senior Product Designer</p>
+</div>
+<div class="text-white/20" title="Night Owl">
+<span class="material-symbols-outlined text-[18px]">bedtime</span>
+</div>
+</div>
+<div class="mt-3 flex gap-2">
+<span class="text-[10px] px-2 py-0.5 rounded bg-white/5 text-white/60 border border-white/5">Figma</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-white/5 text-white/60 border border-white/5">System</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="p-3 rounded-xl bg-[#25252b]/60 border border-white/5 hover:border-white/20 hover:bg-[#2a2a30] transition-all cursor-grab active:cursor-grabbing group relative">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-cover bg-center" data-alt="Portrait of David Chen" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCV8wrAzoJ1NgPW8gyH7AiPrhMt_FgielixcjE4dILQafU2M0vEkX9PylMwm5sf-ZSIGF-wdaZqdR-uofohn1_mBP6SZvXMiyWJy1HU9LZIvGqA8Wr5Le21Dt4RsA13ZHRQOp35VJcbCA-tibASqwdV6v97B3AP-9-y9aD1BvNVdIoRfnxkIcLF-3R70PtVPnLGL9d-BDF5xQ0Y8lF7LCAOvTVvDFeQAbwswg6vysCrttmmaA_oqBsopEYXcnGn6xASFPUaoJpAYEU');"></div>
+<div class="flex-1 min-w-0">
+<h3 class="text-sm font-bold text-white group-hover:text-primary transition-colors">David Chen</h3>
+<p class="text-xs text-white/50 truncate">Backend Engineer</p>
+</div>
+<div class="text-yellow-500/80" title="Early Bird">
+<span class="material-symbols-outlined text-[18px]">wb_sunny</span>
+</div>
+</div>
+<div class="mt-3 flex gap-2">
+<span class="text-[10px] px-2 py-0.5 rounded bg-white/5 text-white/60 border border-white/5">Go</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-white/5 text-white/60 border border-white/5">Kubernetes</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="p-3 rounded-xl bg-[#25252b]/60 border border-white/5 hover:border-white/20 hover:bg-[#2a2a30] transition-all cursor-grab active:cursor-grabbing group relative">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-cover bg-center" data-alt="Portrait of Marcus Johnson" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAGENBmaroELB_IfuD8cBCFxEQ-xznKYoC3KfrOAGqb5koflx-4Lcw66lMyRXK8wIq4LoCpXoqo_eYDC297MvftLAhdfqFJZN08zqBscS5QDIWjSTFxeqygNxPOqp7AsAOqduT2WSHNy2U-9kNZ4Ks7QTkyKCyG_ILUK-5qyUcB8ntD1zm86ZzOYPONR9-BGwHaC9v-lP7A7Mpg5gikc04os-fQSw7QY98lTxebywnwte85obIVznwVgjHGSfe29N_NyfrmUAEmEz4');"></div>
+<div class="flex-1 min-w-0">
+<h3 class="text-sm font-bold text-white group-hover:text-primary transition-colors">Marcus Johnson</h3>
+<p class="text-xs text-white/50 truncate">DevOps Specialist</p>
+</div>
+<div class="text-white/20" title="Flexible">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+</div>
+</div>
+<div class="mt-3 flex gap-2">
+<span class="text-[10px] px-2 py-0.5 rounded bg-white/5 text-white/60 border border-white/5">AWS</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-white/5 text-white/60 border border-white/5">Terraform</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="p-3 rounded-xl bg-[#25252b]/60 border border-white/5 hover:border-white/20 hover:bg-[#2a2a30] transition-all cursor-grab active:cursor-grabbing group relative">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-cover bg-center" data-alt="Portrait of Aisha Patiel" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD0Dgh6QpxH-2_kXQAjVPA_SxcArx1B3Otke-Y5C5_LXPsd9H-UbBdUxfS-hjGvlUFxfHg2KZBZM-D08shqsIS4cod_XjYOm6Naw9b3GmOfqDfZRchBzXEw93fBJNj1Hd-BgA6e48Nm0rFR_QqDzSmeBdsfUsE7xdNK7cppnYXOcbsXA_Ok70R-o8W4uzEdpRCq0JwY13bmtLwkLjLcJIxZFMLLOnUBfDQq3TMOWxNfjncOxbTa0OnMwJuJfqFL83SC5_ie7CW2rr4');"></div>
+<div class="flex-1 min-w-0">
+<h3 class="text-sm font-bold text-white group-hover:text-primary transition-colors">Aisha Patel</h3>
+<p class="text-xs text-white/50 truncate">Frontend Developer</p>
+</div>
+<div class="text-yellow-500/80" title="Early Bird">
+<span class="material-symbols-outlined text-[18px]">wb_sunny</span>
+</div>
+</div>
+<div class="mt-3 flex gap-2">
+<span class="text-[10px] px-2 py-0.5 rounded bg-white/5 text-white/60 border border-white/5">React</span>
+<span class="text-[10px] px-2 py-0.5 rounded bg-white/5 text-white/60 border border-white/5">Three.js</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Center Workspace -->
+<main class="flex-1 grid-bg overflow-y-auto p-8 relative z-10 flex flex-col">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-8">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<h2 class="text-3xl font-bold text-white">Draft Alpha Squad</h2>
+<span class="px-3 py-1 bg-primary/20 text-primary border border-primary/20 rounded-lg text-xs font-bold uppercase tracking-wider">In Progress</span>
+</div>
+<p class="text-white/50 body-text text-sm">Objective: Optimize for high-velocity Q3 feature delivery.</p>
+</div>
+<div class="flex items-center gap-4">
+<button class="glass-panel hover:bg-white/5 text-white px-4 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-base">restart_alt</span>
+                        Reset
+                    </button>
+<button class="bg-primary hover:bg-primary/90 hover:shadow-neon text-white px-6 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-base">save</span>
+                        Save Configuration
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-6 flex-1 h-full pb-20">
+<!-- Squad Grid Area (8 cols) -->
+<div class="col-span-12 lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-min">
+<!-- Slot 1: Filled (Tech Lead) -->
+<div class="glass-panel-active rounded-2xl p-6 relative group transition-all duration-300 hover:-translate-y-1">
+<div class="absolute top-4 right-4 text-primary bg-primary/10 px-2 py-1 rounded text-xs font-bold">LEAD</div>
+<div class="flex items-start gap-4 mb-4">
+<div class="relative">
+<div class="w-16 h-16 rounded-2xl bg-cover bg-center border-2 border-primary shadow-neon" data-alt="Portrait of Sarah Jenkins" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCG2hhT48yukSPGa7I0npv-vgwF766KXqcneYNjElMfMqlVYfCAOtHu9e7knuNgPt2eMtF3UQ7wm3P0WgfIjzRf3qunnO9MLHeZEGOEjCXGbUqK2wfVODYIY3Ml2j0G8uIjXW5CgTIUO0pbJFHcPGBXQEJ27fbJwKR2gonjr9fEBiJtzTM5okHUYk0Vyf-ewW-AS7GIR51e91GGFF3iig-KevGbGkWvJTum0uOewrlaYmLKuu65OQ2Y8fMzLR_umlxlNXORP-hizPc');"></div>
+<div class="absolute -bottom-2 -right-2 bg-[#1e1e24] p-1 rounded-full border border-white/10 text-yellow-400" title="Night Owl">
+<span class="material-symbols-outlined text-sm">bedtime</span>
+</div>
+</div>
+<div>
+<h3 class="text-lg font-bold text-white">Sarah Jenkins</h3>
+<p class="text-primary text-sm font-medium">Tech Lead</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-neon-green text-sm">trending_up</span>
+<span class="text-xs text-neon-green">High Synergy</span>
+</div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between text-xs text-white/50 mb-1">
+<span>Leadership</span>
+<span class="text-white">92%</span>
+</div>
+<div class="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+<div class="bg-gradient-to-r from-primary to-purple-400 h-full rounded-full" style="width: 92%"></div>
+</div>
+<div class="flex justify-between text-xs text-white/50 mb-1">
+<span>Architecture</span>
+<span class="text-white">88%</span>
+</div>
+<div class="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+<div class="bg-gradient-to-r from-primary to-purple-400 h-full rounded-full" style="width: 88%"></div>
+</div>
+</div>
+<!-- Annotation -->
+<div class="absolute -bottom-3 -right-3 rotate-[-5deg] bg-soft-peach text-black text-xs font-bold px-3 py-1 shadow-lg font-handwriting" style="font-family: 'Inter', cursive;">
+                            Crucial hire!
+                        </div>
+</div>
+<!-- Slot 2: Filled (Senior FE) -->
+<div class="glass-panel rounded-2xl p-6 relative group transition-all duration-300 hover:bg-[#25252b]/80">
+<div class="flex items-start gap-4 mb-4">
+<div class="relative">
+<div class="w-16 h-16 rounded-2xl bg-cover bg-center border border-white/10" data-alt="Portrait of Mike Ross" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCkaqAE6c7whzrCak7FTZVoSogyF_mj3NmgrN-vNzOGVOe-Qh0DAVVh0v-H5FJgo4v4qOuAWRtzjE2c8K0fX-Kb-rEM0e2nYcjCGgGUdbxYackaukdeVVunmBvVzXdKMtw4rYCxbM6bV4Pf-q2nelJnQG9fyYf617w-Vst8RS7aFj-GWfPJ7vdRs2y-QT5ZnICoXmW8fs6D2wUV38HAGM5LpPiR45XsCi2QruuggHCk2dt_khYs1Wgzvz64KrIw2wQm7p5y1Gc-V4I');"></div>
+<div class="absolute -bottom-2 -right-2 bg-[#1e1e24] p-1 rounded-full border border-white/10 text-orange-400" title="Early Bird">
+<span class="material-symbols-outlined text-sm">wb_sunny</span>
+</div>
+</div>
+<div>
+<h3 class="text-lg font-bold text-white">Mike Ross</h3>
+<p class="text-white/60 text-sm font-medium">Senior FE</p>
+</div>
+</div>
+<div class="space-y-3 opacity-60 group-hover:opacity-100 transition-opacity">
+<div class="flex justify-between text-xs text-white/50 mb-1">
+<span>React</span>
+<span class="text-white">95%</span>
+</div>
+<div class="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+<div class="bg-white/40 h-full rounded-full" style="width: 95%"></div>
+</div>
+<div class="flex gap-2 mt-4 flex-wrap">
+<span class="text-xs bg-white/5 px-2 py-1 rounded text-white/60">Mentor</span>
+<span class="text-xs bg-white/5 px-2 py-1 rounded text-white/60">UI/UX</span>
+</div>
+</div>
+</div>
+<!-- Slot 3: Empty -->
+<div class="dashed-border rounded-2xl min-h-[240px] flex flex-col items-center justify-center gap-3 text-white/20 hover:text-primary/60 hover:border-primary/40 hover:bg-primary/5 transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-full border-2 border-dashed border-current flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">add</span>
+</div>
+<p class="font-medium text-sm">Drag Engineer Here</p>
+</div>
+<!-- Slot 4: Empty -->
+<div class="dashed-border rounded-2xl min-h-[240px] flex flex-col items-center justify-center gap-3 text-white/20 hover:text-primary/60 hover:border-primary/40 hover:bg-primary/5 transition-all cursor-pointer group">
+<div class="w-12 h-12 rounded-full border-2 border-dashed border-current flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-2xl">add</span>
+</div>
+<p class="font-medium text-sm">Drag Engineer Here</p>
+</div>
+</div>
+<!-- Analysis Sidebar (4 cols) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<!-- Fit Score Panel -->
+<div class="glass-panel p-6 rounded-2xl flex flex-col items-center text-center relative overflow-hidden">
+<div class="absolute top-0 w-full h-1 bg-gradient-to-r from-transparent via-neon-green to-transparent opacity-50"></div>
+<h3 class="text-white/60 uppercase tracking-widest text-xs font-bold mb-4">Resilience Score</h3>
+<div class="relative w-40 h-40 flex items-center justify-center mb-2">
+<!-- SVG Gauge Background -->
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="45" stroke="#333" stroke-width="8"></circle>
+<circle class="drop-shadow-[0_0_10px_rgba(0,255,157,0.5)]" cx="50" cy="50" fill="none" r="45" stroke="#00ff9d" stroke-dasharray="283" stroke-dashoffset="45" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-4xl font-bold text-white">84</span>
+<span class="text-xs text-neon-green font-medium">Excellent</span>
+</div>
+</div>
+<p class="text-xs body-text text-white/50 px-4">
+                            This squad configuration shows strong communicative overlap and skill diversity.
+                        </p>
+</div>
+<!-- Skill Gap Analysis -->
+<div class="glass-panel p-6 rounded-2xl flex-1 min-h-[300px]">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-white font-bold text-sm">Skill Coverage</h3>
+<span class="text-xs text-white/40">Radar View</span>
+</div>
+<!-- Simulated Radar Chart with CSS/SVG -->
+<div class="relative w-full aspect-square flex items-center justify-center">
+<!-- Background Grid -->
+<svg class="w-full h-full opacity-30" viewbox="0 0 200 200">
+<polygon fill="none" points="100,20 176,64 176,152 100,196 24,152 24,64" stroke="white" stroke-width="1"></polygon>
+<polygon fill="none" points="100,40 157,73 157,139 100,172 43,139 43,73" stroke="white" stroke-width="1"></polygon>
+<polygon fill="none" points="100,60 138,82 138,126 100,148 62,126 62,82" stroke="white" stroke-width="1"></polygon>
+<line stroke="white" stroke-width="1" x1="100" x2="100" y1="100" y2="20"></line>
+<line stroke="white" stroke-width="1" x1="100" x2="176" y1="100" y2="64"></line>
+<line stroke="white" stroke-width="1" x1="100" x2="176" y1="100" y2="152"></line>
+<line stroke="white" stroke-width="1" x1="100" x2="100" y1="100" y2="196"></line>
+<line stroke="white" stroke-width="1" x1="100" x2="24" y1="100" y2="152"></line>
+<line stroke="white" stroke-width="1" x1="100" x2="24" y1="100" y2="64"></line>
+</svg>
+<!-- Data Polygon -->
+<svg class="w-full h-full absolute top-0 left-0 drop-shadow-[0_0_10px_rgba(127,0,255,0.4)]" viewbox="0 0 200 200">
+<polygon fill="rgba(127, 0, 255, 0.3)" points="100,30 160,70 140,140 100,160 50,130 60,60" stroke="#7f00ff" stroke-width="2"></polygon>
+</svg>
+<!-- Labels -->
+<span class="absolute top-[5%] text-[10px] text-white/70 bg-black/40 px-1 rounded">Frontend</span>
+<span class="absolute top-[25%] right-[5%] text-[10px] text-white/70 bg-black/40 px-1 rounded">Backend</span>
+<span class="absolute bottom-[20%] right-[5%] text-[10px] text-white/70 bg-black/40 px-1 rounded">DevOps</span>
+<span class="absolute bottom-[0%] text-[10px] text-white/70 bg-black/40 px-1 rounded">Mobile</span>
+<span class="absolute bottom-[20%] left-[5%] text-[10px] text-white/70 bg-black/40 px-1 rounded">QA</span>
+<span class="absolute top-[25%] left-[5%] text-[10px] text-white/70 bg-black/40 px-1 rounded">Design</span>
+</div>
+</div>
+<!-- Timezone Widget -->
+<div class="glass-panel p-4 rounded-2xl">
+<h3 class="text-white/60 text-xs font-bold uppercase mb-3">Timezone Overlap</h3>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-8 bg-white/5 rounded relative overflow-hidden flex">
+<!-- Day hours -->
+<div class="w-[30%] h-full bg-blue-500/10"></div>
+<div class="w-[40%] h-full bg-neon-green/20 border-x border-neon-green/30"></div> <!-- Overlap -->
+<div class="w-[30%] h-full bg-purple-500/10"></div>
+</div>
+<span class="text-neon-green font-bold text-sm">4.5h</span>
+</div>
+<p class="text-[10px] text-white/40 mt-2 text-center">Optimal synchronous hours: 10AM - 2:30PM EST</p>
+</div>
+</div>
+</div>
+<!-- Bottom Floating Toolbar -->
+<div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 glass-panel px-6 py-3 rounded-full flex items-center gap-6 shadow-2xl z-50">
+<button class="text-white/50 hover:text-white transition-colors" title="Undo">
+<span class="material-symbols-outlined">undo</span>
+</button>
+<div class="h-4 w-[1px] bg-white/10"></div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-white/5 transition-colors text-sm">
+<span class="material-symbols-outlined text-base">view_column</span>
+                        Layout
+                    </button>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary/20 text-primary border border-primary/20 text-sm font-medium">
+<span class="material-symbols-outlined text-base">analytics</span>
+                        Analyze
+                    </button>
+</div>
+<div class="h-4 w-[1px] bg-white/10"></div>
+<button class="text-white/50 hover:text-white transition-colors" title="Help">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+</main>
+</div>
+</body></html>

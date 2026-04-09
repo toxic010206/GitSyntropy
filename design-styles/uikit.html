@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitSyntropy UI Kit</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
+        <h1 style="text-align: center; color: var(--soft-lavender);">UI Kit & Style Guide</h1>
+        <p style="text-align: center; margin: 0 auto 4rem;">The foundational elements of the Electric Warmth aesthetic.</p>
+
+        <!-- Typography -->
+        <section class="bento-grid">
+            <div class="card col-6">
+                <h3>Typography</h3>
+                <h1 style="margin-top: 1rem;">Heading 1</h1>
+                <h2>Heading 2 Orbitron</h2>
+                <h3>Heading 3 Montserrat</h3>
+                <p>Body text in Open Sans. Optimized for legibility in dark mode interfaces. Lorem ipsum dolor sit amet.</p>
+            </div>
+
+            <!-- Colors -->
+            <div class="card col-6">
+                <h3>Color Palette</h3>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <div style="width: 60px; height: 60px; background: var(--primary-electric); border-radius: 50%;"></div>
+                    <div style="width: 60px; height: 60px; background: var(--secondary-neon); border-radius: 50%;"></div>
+                    <div style="width: 60px; height: 60px; background: var(--soft-lavender); border-radius: 50%;"></div>
+                    <div style="width: 60px; height: 60px; background: var(--soft-peach); border-radius: 50%;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Components -->
+        <section class="bento-grid">
+            <div class="card col-4">
+                <h3>Interactive</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                    <button class="btn btn-primary">Primary Action</button>
+                    <button class="btn btn-ghost">Ghost Action</button>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <input type="checkbox" class="toggle" checked>
+                        <span>Toggle Switch</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card col-4">
+                <h3>Badges & Tags</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+                    <span class="badge badge-owl">Night Owl</span>
+                    <span class="badge badge-resilience">Resilience: 98%</span>
+                    <span class="badge" style="background: rgba(255,255,255,0.1); border: 1px solid white;">Neutral</span>
+                </div>
+            </div>
+
+            <div class="card col-4" style="display: flex; align-items: center; justify-content: center;">
+                <div class="loader-ring"></div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

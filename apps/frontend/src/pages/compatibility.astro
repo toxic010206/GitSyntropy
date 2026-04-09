@@ -1,0 +1,16 @@
+---
+import AppNav from "@/components/AppNav.astro";
+import { CompatibilityClient } from "@/components/CompatibilityClient";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="GitSyntropy | Compatibility">
+  <div class="fixed inset-0 z-0 pointer-events-none">
+    <div class="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(204,255,0,0.15),_transparent_70%)] blur-[100px]"></div>
+    <div class="absolute bottom-0 right-[10%] w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(57,255,20,0.08),_transparent_70%)] blur-[80px]"></div>
+    <div class="absolute inset-0 opacity-[0.03] bg-grid-pattern bg-[size:40px_40px]"></div>
+  </div>
+  
+  <AppNav />
+  <CompatibilityClient client:load />
+</BaseLayout>

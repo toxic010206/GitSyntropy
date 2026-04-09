@@ -1,0 +1,11 @@
+---
+import { WorkspaceClient } from "@/components/WorkspaceClient";
+import AppNav from "@/components/AppNav.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="GitSyntropy | Workspace">
+  <div class="fixed inset-0 z-0 pointer-events-none bg-grid-pattern opacity-20"></div>
+  <AppNav />
+  <WorkspaceClient client:load />
+</BaseLayout>

@@ -1,0 +1,10 @@
+---
+import AppNav from "@/components/AppNav.astro";
+import { AuthClient } from "@/components/AuthClient";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="GitSyntropy | Auth">
+  <AppNav />
+  <AuthClient client:load />
+</BaseLayout>

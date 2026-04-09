@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Deep Insights: Team Compatibility</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7f00ff",
+                        "accent-neon": "#39ff14",
+                        "accent-pink": "#ff00ff",
+                        "background-light": "#dcd4ec",
+                        "background-dark": "#121212",
+                        "glass-surface": "rgba(42, 42, 42, 0.40)",
+                        "glass-border": "rgba(255, 255, 255, 0.08)",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #303030 1px, transparent 1px), linear-gradient(to bottom, #303030 1px, transparent 1px)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(30, 30, 35, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .neon-glow-text {
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+        }
+        
+        .purple-glow-text {
+            text-shadow: 0 0 15px rgba(127, 0, 255, 0.6);
+        }
+
+        .scribble-anim path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 2s ease-out forwards;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* Subtle ambient mesh background */
+        .ambient-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(127,0,255,0.15) 0%, rgba(0,0,0,0) 70%);
+            top: -100px;
+            left: 20%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .ambient-glow-2 {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(57, 255, 20, 0.08) 0%, rgba(0,0,0,0) 70%);
+            bottom: 0;
+            right: 10%;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display min-h-screen selection:bg-primary selection:text-white overflow-x-hidden">
+<!-- Ambient Background Effects -->
+<div class="ambient-glow"></div>
+<div class="ambient-glow-2"></div>
+<div class="fixed inset-0 z-[-2] opacity-[0.03] bg-[size:40px_40px] bg-grid-pattern pointer-events-none"></div>
+<div class="layout-container flex h-full grow flex-col min-h-screen">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-glass-border glass-panel sticky top-0 z-50 px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white shadow-[0_0_15px_rgba(127,0,255,0.5)]">
+<span class="material-symbols-outlined">hub</span>
+</div>
+<div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-tight">Deep Insights</h2>
+<div class="flex items-center gap-2 text-xs text-gray-400 font-body mt-0.5">
+<span class="hover:text-primary cursor-pointer transition-colors">Team Alpha</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span class="text-white font-medium">Deep Compatibility</span>
+</div>
+</div>
+</div>
+<!-- Nav Links -->
+<nav class="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/5">
+<a class="text-gray-400 hover:text-white hover:bg-white/10 px-4 py-2 rounded-full text-sm font-medium transition-all" href="#">Dashboard</a>
+<a class="text-white bg-white/10 px-4 py-2 rounded-full text-sm font-medium shadow-inner" href="#">Teams</a>
+<a class="text-gray-400 hover:text-white hover:bg-white/10 px-4 py-2 rounded-full text-sm font-medium transition-all" href="#">Insights</a>
+<a class="text-gray-400 hover:text-white hover:bg-white/10 px-4 py-2 rounded-full text-sm font-medium transition-all" href="#">Settings</a>
+</nav>
+<div class="flex items-center gap-4">
+<!-- Time Travel Dropdown -->
+<div class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-accent-neon/30 bg-accent-neon/5 text-accent-neon text-sm font-medium cursor-pointer hover:bg-accent-neon/10 transition-colors">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span>Last Sprint</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+<div class="h-8 w-[1px] bg-white/10 mx-1"></div>
+<div class="flex gap-2">
+<button class="flex items-center justify-center size-10 rounded-full hover:bg-white/10 text-white transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-accent-pink rounded-full border border-[#121212]"></span>
+</button>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border-2 border-primary/50 cursor-pointer shadow-[0_0_10px_rgba(127,0,255,0.3)]" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA1CiDjBicw9Sp4djPfVO9svgKR8UMbACbtioGCkHSHJNDuxcnCnR2IGkIgH09VspVQzk4ULBm0-xQGSfqKkdznD9J-mXDAV4rxL4KkM2qmaTez8MhIRrhomJIhov8X1VN5IKqCqn3D8xuyRRJWzTXYjbUBEj9HcIlJ-rSxjElXswmBVHrpMQ6MX7eqwrURNcbCF7xjksXUAQthwBHx-jRE1aOjUyKbdtfxROCrxeJcWqXD1VLMEQncAyzIvvtj8mdnFocBkKO-zUo");'></div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 p-6 max-w-[1600px] mx-auto w-full">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full">
+<!-- Left Column (Grid) -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Top Row: Radar + Clock + Metrics -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 min-h-[420px]">
+<!-- Resilience Radar (Hero) -->
+<div class="md:col-span-7 glass-panel rounded-2xl p-6 relative overflow-hidden group">
+<div class="flex justify-between items-start mb-2 relative z-10">
+<div>
+<h3 class="text-white text-lg font-bold tracking-tight">RESILIENCE RADAR</h3>
+<p class="text-gray-400 text-xs mt-1">36-Point Compatibility Metrics</p>
+</div>
+<button class="p-2 hover:bg-white/5 rounded-lg text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<!-- Radar Chart Visualization -->
+<div class="relative h-[300px] flex items-center justify-center mt-4">
+<!-- Background Mesh/Grid for Radar -->
+<svg class="w-full h-full absolute inset-0 text-white/5" viewbox="0 0 100 100">
+<!-- Concentric Hexagons -->
+<polygon fill="none" points="50,10 85,30 85,70 50,90 15,70 15,30" stroke="currentColor" stroke-width="0.5"></polygon>
+<polygon fill="none" points="50,20 76,35 76,65 50,80 24,65 24,35" stroke="currentColor" stroke-width="0.5"></polygon>
+<polygon fill="none" points="50,30 67,40 67,60 50,70 33,60 33,40" stroke="currentColor" stroke-width="0.5"></polygon>
+<!-- Axes -->
+<line stroke="currentColor" stroke-width="0.5" x1="50" x2="50" y1="50" y2="10"></line>
+<line stroke="currentColor" stroke-width="0.5" x1="50" x2="85" y1="50" y2="30"></line>
+<line stroke="currentColor" stroke-width="0.5" x1="50" x2="85" y1="50" y2="70"></line>
+<line stroke="currentColor" stroke-width="0.5" x1="50" x2="50" y1="50" y2="90"></line>
+<line stroke="currentColor" stroke-width="0.5" x1="50" x2="15" y1="50" y2="70"></line>
+<line stroke="currentColor" stroke-width="0.5" x1="50" x2="15" y1="50" y2="30"></line>
+</svg>
+<!-- Data Shape -->
+<svg class="w-full h-full absolute inset-0 drop-shadow-[0_0_8px_rgba(127,0,255,0.6)]" viewbox="0 0 100 100">
+<polygon class="group-hover:stroke-[2] transition-all duration-500" fill="rgba(127,0,255,0.3)" points="50,15 80,35 70,65 50,85 20,60 30,35" stroke="#7f00ff" stroke-width="1.5"></polygon>
+</svg>
+<!-- Labels -->
+<div class="absolute inset-0">
+<span class="absolute top-[5%] left-1/2 -translate-x-1/2 text-[10px] font-bold text-accent-neon bg-black/50 px-1 rounded">Code Velocity</span>
+<span class="absolute top-[25%] right-[5%] text-[10px] text-gray-400">Innovation</span>
+<span class="absolute bottom-[25%] right-[5%] text-[10px] text-gray-400">Risk Taking</span>
+<span class="absolute bottom-[5%] left-1/2 -translate-x-1/2 text-[10px] text-gray-400">Quality</span>
+<span class="absolute bottom-[25%] left-[5%] text-[10px] text-gray-400">Empathy</span>
+<span class="absolute top-[25%] left-[5%] text-[10px] text-gray-400">Comm.</span>
+</div>
+<!-- Hand-drawn scribble -->
+<div class="absolute top-[20%] left-[20%] w-24 h-24 pointer-events-none scribble-anim">
+<svg fill="none" viewbox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<path d="M80 20 C 70 10, 30 30, 20 60" stroke="#dcd4ec" stroke-linecap="round" stroke-width="2"></path>
+<path d="M20 60 L 15 50 M 20 60 L 30 58" stroke="#dcd4ec" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+<span class="absolute -top-4 -left-10 text-[#dcd4ec] text-xs font-handwriting rotate-[-10deg] whitespace-nowrap bg-black/40 px-2 rounded backdrop-blur-sm">Communication Gap</span>
+</div>
+</div>
+</div>
+<!-- Right Side of Top Row -->
+<div class="md:col-span-5 flex flex-col gap-6">
+<!-- Chronotype Clock -->
+<div class="glass-panel rounded-2xl p-6 flex-1 flex flex-col relative overflow-hidden">
+<h3 class="text-white text-md font-bold tracking-tight mb-4">CHRONOTYPE CLOCK</h3>
+<div class="flex-1 flex items-center justify-center relative">
+<!-- Clock Dial -->
+<div class="size-48 rounded-full border-4 border-white/5 relative flex items-center justify-center shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
+<!-- Active Time Arc (10am - 2pm approx) -->
+<svg class="absolute inset-0 size-full rotate-[150deg]" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="44" stroke="rgba(57, 255, 20, 0.1)" stroke-width="8"></circle>
+<circle class="drop-shadow-[0_0_8px_rgba(57,255,20,0.5)]" cx="50" cy="50" fill="none" r="44" stroke="#39ff14" stroke-dasharray="276" stroke-dashoffset="200" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<!-- Center Text -->
+<div class="flex flex-col items-center">
+<span class="text-gray-400 text-[10px] uppercase tracking-wider">Peak Focus</span>
+<span class="text-2xl font-bold text-white font-mono">10:00</span>
+<span class="text-xs text-gray-500 font-mono">TO 14:00</span>
+</div>
+</div>
+<!-- Decorative Ticks -->
+<div class="absolute inset-0 pointer-events-none">
+<div class="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] text-gray-500">00</div>
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 text-[10px] text-gray-500">12</div>
+<div class="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-500">18</div>
+<div class="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-gray-500">06</div>
+</div>
+</div>
+</div>
+<!-- Small Metrics Grid -->
+<div class="grid grid-cols-2 gap-6 h-32">
+<!-- Velocity -->
+<div class="glass-panel rounded-2xl p-4 flex flex-col justify-between group hover:bg-white/5 transition-colors cursor-pointer">
+<div class="flex justify-between items-start">
+<span class="text-gray-400 text-xs font-bold uppercase">Velocity</span>
+<span class="material-symbols-outlined text-accent-neon text-sm">trending_up</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-bold text-white neon-glow-text">98.4</span>
+<span class="text-[10px] text-accent-neon">+2.4%</span>
+</div>
+</div>
+<!-- Burnout Risk -->
+<div class="glass-panel rounded-2xl p-4 flex flex-col justify-between group hover:bg-white/5 transition-colors cursor-pointer border-accent-pink/20">
+<div class="flex justify-between items-start">
+<span class="text-gray-400 text-xs font-bold uppercase">Burnout Risk</span>
+<span class="material-symbols-outlined text-accent-pink text-sm">warning</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-bold text-white group-hover:text-accent-pink transition-colors">12%</span>
+<span class="text-[10px] text-gray-500">Stable</span>
+</div>
+<!-- Tiny Progress Bar -->
+<div class="w-full bg-white/10 h-1 mt-2 rounded-full overflow-hidden">
+<div class="bg-accent-pink h-full w-[12%] shadow-[0_0_5px_rgba(255,0,255,0.8)]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Row: Sync Timeline -->
+<div class="glass-panel rounded-2xl p-6 min-h-[260px] relative">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-white text-lg font-bold tracking-tight">SYNC TIMELINE</h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-primary"></span>
+<span class="text-xs text-gray-400">Commits</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-accent-neon"></span>
+<span class="text-xs text-gray-400">Merge Events</span>
+</div>
+</div>
+</div>
+<!-- Timeline Chart Area -->
+<div class="relative h-[160px] w-full">
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+<div class="border-b border-white/5 w-full h-0"></div>
+<div class="border-b border-white/5 w-full h-0"></div>
+<div class="border-b border-white/5 w-full h-0"></div>
+<div class="border-b border-white/5 w-full h-0"></div>
+</div>
+<!-- Waveform (Commits) -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 100">
+<defs>
+<lineargradient id="gradientPurple" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#7f00ff" stop-opacity="0.4"></stop>
+<stop offset="100%" stop-color="#7f00ff" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0 80 C 100 70, 150 20, 250 40 C 350 60, 400 30, 500 50 C 600 70, 650 10, 750 30 C 850 50, 900 60, 1000 40 V 100 H 0 Z" fill="url(#gradientPurple)"></path>
+<path d="M0 80 C 100 70, 150 20, 250 40 C 350 60, 400 30, 500 50 C 600 70, 650 10, 750 30 C 850 50, 900 60, 1000 40" fill="none" stroke="#7f00ff" stroke-width="2"></path>
+</svg>
+<!-- Waveform 2 (Merges - Spiky) -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 100">
+<polyline fill="none" points="0,90 100,85 150,50 200,80 250,75 300,40 350,60 400,85 500,70 600,80 650,30 700,60 800,85 900,80 1000,90" stroke="#39ff14" stroke-dasharray="4 4" stroke-width="1.5"></polyline>
+</svg>
+<!-- Hand Drawn Annotation -->
+<div class="absolute top-[20%] right-[30%] pointer-events-none">
+<div class="relative">
+<svg class="absolute -top-4 -left-4" height="60" viewbox="0 0 60 60" width="60">
+<circle class="animate-spin-slow" cx="30" cy="30" fill="none" r="25" stroke="#dcd4ec" stroke-dasharray="10 5" stroke-linecap="round" stroke-width="2" style="animation-duration: 10s;"></circle>
+</svg>
+<div class="h-2 w-2 bg-[#dcd4ec] rounded-full absolute top-[16px] left-[16px]"></div>
+<div class="absolute -top-10 -right-20 bg-[#dcd4ec] text-black text-[10px] font-bold px-2 py-0.5 rounded rotate-3 shadow-lg">
+                                        Release V2.0
+                                    </div>
+<svg class="absolute -top-5 -right-5" height="40" viewbox="0 0 40 40" width="40">
+<path d="M0 40 Q 10 30, 5 5" fill="none" stroke="#dcd4ec" stroke-width="1.5"></path>
+<path d="M5 5 L 0 10 M 5 5 L 10 10" fill="none" stroke="#dcd4ec" stroke-width="1.5"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (AI Feed) -->
+<div class="lg:col-span-4 flex flex-col h-full gap-6">
+<div class="glass-panel rounded-2xl flex-1 p-6 flex flex-col gap-4">
+<div class="flex items-center gap-3 mb-2">
+<div class="size-8 rounded-full bg-gradient-to-br from-primary to-accent-pink flex items-center justify-center animate-pulse">
+<span class="material-symbols-outlined text-white text-sm">auto_awesome</span>
+</div>
+<h3 class="text-white text-lg font-bold tracking-tight">AI INSIGHTS</h3>
+</div>
+<!-- Card 1: Conflict Risk (High) -->
+<div class="bg-white/5 border border-white/5 hover:border-accent-pink/50 rounded-xl p-4 transition-all hover:bg-white/10 group cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="bg-red-500/20 text-red-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-red-500/30">CONFLICT RISK</span>
+<span class="text-gray-500 text-[10px]">2h ago</span>
+</div>
+<p class="text-sm text-gray-200 leading-snug font-medium mb-3">Deployment styles clash detected between <span class="text-white font-bold underline decoration-accent-pink/50">Sarah</span> &amp; <span class="text-white font-bold underline decoration-accent-pink/50">Mike</span>.</p>
+<div class="flex items-center gap-2">
+<button class="text-[10px] bg-white/10 hover:bg-white/20 text-white px-2 py-1 rounded transition-colors">View Pull Requests</button>
+<button class="size-6 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[14px]">thumb_down</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Synergy Alert (Good) -->
+<div class="bg-white/5 border border-white/5 hover:border-accent-neon/50 rounded-xl p-4 transition-all hover:bg-white/10 group cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-accent-neon/10 blur-xl rounded-full -mr-8 -mt-8 pointer-events-none"></div>
+<div class="flex justify-between items-start mb-2">
+<span class="bg-accent-neon/10 text-accent-neon text-[10px] font-bold px-2 py-0.5 rounded-full border border-accent-neon/30">SYNERGY PEAK</span>
+<span class="text-gray-500 text-[10px]">5h ago</span>
+</div>
+<p class="text-sm text-gray-200 leading-snug font-medium mb-3">Frontend pair programming velocity increased by <span class="text-accent-neon font-bold">24%</span> this week.</p>
+<div class="flex items-center gap-[-8px]">
+<div class="size-6 rounded-full border border-[#121212] bg-gray-600 bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDf4TYG89LtJO-LdpgTgBm-3jae-MPeN2SBgxHpDOaij15MNEhhLkdzgpaOHfIRdabjdEv6gbhFr8YYg4hzcZbaKvhKTNRgw81nmmoXd-7KvyKyylcda0g1sqvmy-_pOgQz7sWqejnXQbHkHaz4RojumXC_sGVWfm6hLmIk4mIQZ_3ACqIDN9OMF31GSBtZlJDh7A_QOjlFpUMoqm198cK-pJCsy-r8tKXO1_C61P8Zv9r2aXJ59gyqdYrMWmzsfqzeq83mGLPi_us");'></div>
+<div class="size-6 rounded-full border border-[#121212] bg-gray-500 -ml-2 bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA1BgYcn_evVF_aGAg-PVVJpPPH9z9yxXuw2MvQ_U-j5hAVJxXTw3f_wfkg2PDyTAR-s42Nw15c_Gj_CC32T2SvY_4BjO-wTHRAVaCJPJQmNsFMbLirS36WofrXo2kJIqRWSqrdMUd9IW2VFJ3X3lz0xf9RaT_R0WKBF359QV_S-HU0V54ZmfQ_q0UB2HtCnqBBMH-Zf7yGjKjrZzxRofG61CPj7HYqKt18UmAxA5Hc7hPE_YDypslufad_sJCwB85H4ZXmeMh5VzY");'></div>
+<div class="size-6 rounded-full border border-[#121212] bg-gray-400 -ml-2 bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD3Q3vS9Bi99qBFE6Pxsr1HWHbSnG_X7cDAglfDHHyEtXqvffT2a73LlSrsGc6ZsKMrMxJMqWy_T0R-3cQcAKL445WV12cfwYXczOqwsawDnzPojVv5MREgo4gOM0d-YUcKJ1D0tx7JGzNvsxeFgoQF440JlYZOCdmt9oNjujlnrJwldoSlbBBnjfUmkRpQ29CnDxf3R0ggEsbwCOVotY12-nF3unzjXQ0TZVsTNzRR8mC0vNI3MZhclBSiMbjvTRj6SwGgqshm7U4");'></div>
+<span class="ml-2 text-[10px] text-gray-400">+2 others</span>
+</div>
+</div>
+<!-- Card 3: Suggestion -->
+<div class="bg-white/5 border border-white/5 hover:border-primary/50 rounded-xl p-4 transition-all hover:bg-white/10 group cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<span class="bg-primary/20 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full border border-primary/30">OPTIMIZATION</span>
+<span class="text-gray-500 text-[10px]">1d ago</span>
+</div>
+<p class="text-sm text-gray-200 leading-snug font-medium mb-3">Reduce context switching. Core team is interrupted every <span class="text-white font-bold">42 mins</span> on average.</p>
+<button class="w-full mt-1 text-[10px] bg-primary/20 hover:bg-primary/30 text-primary border border-primary/30 py-1.5 rounded transition-colors font-bold uppercase tracking-wide">
+                                Enable Focus Mode
+                            </button>
+</div>
+<!-- Empty State Filler to show grid completeness if needed or just space -->
+<div class="flex-1 min-h-[50px] border-2 border-dashed border-white/5 rounded-xl flex items-center justify-center text-gray-600 text-xs">
+                           Waiting for new data signals...
+                        </div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

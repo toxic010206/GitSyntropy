@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EngAnalytics - Psychometric Assessment</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7f00ff",
+                        "background-light": "#f7f5f8",
+                        "background-dark": "#190f23",
+                        "midnight": "#0f0f0f",
+                        "neon-green": "#00ff00",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem", 
+                        "xl": "1.5rem",
+                        "2xl": "2rem",
+                        "full": "9999px"
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0f0f0f; /* Midnight Black override */
+            color: #e6e6e6;
+        }
+        
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(127, 0, 255, 0.03); /* Extremely subtle purple tint */
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .glass-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+        }
+
+        /* Neon Glows */
+        .neon-text-green {
+            text-shadow: 0 0 12px rgba(0, 255, 0, 0.6);
+        }
+        
+        .neon-shadow-purple {
+            box-shadow: 0 0 20px rgba(127, 0, 255, 0.4);
+        }
+
+        /* Custom Scrollbar for hidden overflow aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f0f0f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-display antialiased overflow-x-hidden selection:bg-primary selection:text-white relative group/design-root">
+<!-- Ambient Mesh Background -->
+<div class="fixed inset-0 z-0 pointer-events-none">
+<!-- Lavender Mesh Gradient Top Left -->
+<div class="absolute top-[-20%] left-[-10%] w-[900px] h-[900px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(127,0,255,0.15),_transparent_70%)] blur-[100px] animate-pulse-slow"></div>
+<!-- Subtle Secondary Glow Bottom Right -->
+<div class="absolute bottom-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(50,20,90,0.3),_transparent_70%)] blur-[80px]"></div>
+<!-- Noise Texture Overlay (Optional for grit) -->
+<div class="absolute inset-0 opacity-[0.03]" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDHpNLqy64XoYAmX1wHpx4T8Co23jyT1oCp7w3aFkYFIc1YlhLNGG6uufsaJAGx75tg4O3dPJQLdUa0Kz0EEnMNa89km7TyAFiUA5wdf9P02uAXR1p0cHD6xnin9NKuptZjf_K2_AFQblwZV358g7ZamFh_fUI2cWo1neYnpXHLgnzx0gZYHxTIqkD-hfQ8M6gDu3D_hLoyVIwgDIZlvFva3AclpJT_UrgfKUlKTZ6arY0fQMReELF11J3Fl52jbj4sWL7MnegyAEE');"></div>
+</div>
+<!-- Sticky Header -->
+<header class="sticky top-0 z-50 w-full backdrop-blur-md border-b border-white/5 bg-[#0f0f0f]/80 pt-6 pb-4 px-6 md:px-12 lg:px-20">
+<div class="max-w-5xl mx-auto w-full flex flex-col gap-3">
+<div class="flex justify-between items-end w-full">
+<div class="flex flex-col">
+<span class="text-xs font-mono text-gray-500 uppercase tracking-widest mb-1">Assessment Progress</span>
+<h2 class="text-white text-lg font-bold tracking-tight">Question 3 of 8</h2>
+</div>
+<div class="text-neon-green font-mono font-bold text-sm tracking-widest neon-text-green">37%</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-[12px] bg-white/5 rounded-full overflow-hidden border border-white/10 relative">
+<div class="absolute inset-y-0 left-0 bg-neon-green w-[37%] shadow-[0_0_15px_#00ff00] rounded-full transition-all duration-700 ease-out"></div>
+<!-- Shimmer effect on bar -->
+<div class="absolute inset-y-0 left-0 w-[37%] bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-50"></div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex items-center justify-center p-6 relative z-10 py-12">
+<div class="max-w-3xl w-full flex flex-col gap-8 animate-float">
+<!-- Glass Card -->
+<div class="glass-panel rounded-2xl p-8 md:p-12 relative overflow-hidden group/card transition-all duration-500 hover:border-primary/30">
+<!-- Top gradient highlight -->
+<div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-70"></div>
+<!-- Question Headline -->
+<h1 class="text-3xl md:text-4xl lg:text-[40px] font-bold text-white leading-[1.15] mb-10 tracking-tight drop-shadow-lg">
+                    How do you prioritize tasks during a high-pressure release?
+                </h1>
+<!-- Options -->
+<div class="flex flex-col gap-4" role="radiogroup">
+<!-- Option 1 -->
+<label class="group/option relative flex items-center w-full p-5 rounded-xl border border-white/10 bg-white/[0.02] hover:bg-primary/10 hover:border-primary/60 cursor-pointer transition-all duration-200 hover:shadow-[0_0_25px_rgba(127,0,255,0.15)] active:scale-[0.99]">
+<input class="peer sr-only" name="q3" type="radio"/>
+<!-- Active State Border Glow -->
+<div class="absolute inset-0 rounded-xl border-2 border-transparent peer-checked:border-primary peer-checked:shadow-[0_0_30px_rgba(127,0,255,0.2)] transition-all pointer-events-none"></div>
+<!-- Indicator -->
+<div class="flex-shrink-0 size-6 rounded-full border border-gray-600 group-hover/option:border-primary peer-checked:border-primary peer-checked:bg-primary mr-5 flex items-center justify-center transition-colors shadow-inner bg-black/20">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0 peer-checked:opacity-100 font-bold scale-75 peer-checked:scale-100 transition-transform">check</span>
+</div>
+<span class="text-lg text-gray-300 font-medium group-hover/option:text-white peer-checked:text-white transition-colors">
+                            Focus on critical path blockers first
+                        </span>
+</label>
+<!-- Option 2 -->
+<label class="group/option relative flex items-center w-full p-5 rounded-xl border border-white/10 bg-white/[0.02] hover:bg-primary/10 hover:border-primary/60 cursor-pointer transition-all duration-200 hover:shadow-[0_0_25px_rgba(127,0,255,0.15)] active:scale-[0.99]">
+<input class="peer sr-only" name="q3" type="radio"/>
+<div class="absolute inset-0 rounded-xl border-2 border-transparent peer-checked:border-primary peer-checked:shadow-[0_0_30px_rgba(127,0,255,0.2)] transition-all pointer-events-none"></div>
+<div class="flex-shrink-0 size-6 rounded-full border border-gray-600 group-hover/option:border-primary peer-checked:border-primary peer-checked:bg-primary mr-5 flex items-center justify-center transition-colors shadow-inner bg-black/20">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0 peer-checked:opacity-100 font-bold scale-75 peer-checked:scale-100 transition-transform">check</span>
+</div>
+<span class="text-lg text-gray-300 font-medium group-hover/option:text-white peer-checked:text-white transition-colors">
+                            Delegate smaller tasks to clear the backlog
+                        </span>
+</label>
+<!-- Option 3 -->
+<label class="group/option relative flex items-center w-full p-5 rounded-xl border border-white/10 bg-white/[0.02] hover:bg-primary/10 hover:border-primary/60 cursor-pointer transition-all duration-200 hover:shadow-[0_0_25px_rgba(127,0,255,0.15)] active:scale-[0.99]">
+<input class="peer sr-only" name="q3" type="radio"/>
+<div class="absolute inset-0 rounded-xl border-2 border-transparent peer-checked:border-primary peer-checked:shadow-[0_0_30px_rgba(127,0,255,0.2)] transition-all pointer-events-none"></div>
+<div class="flex-shrink-0 size-6 rounded-full border border-gray-600 group-hover/option:border-primary peer-checked:border-primary peer-checked:bg-primary mr-5 flex items-center justify-center transition-colors shadow-inner bg-black/20">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0 peer-checked:opacity-100 font-bold scale-75 peer-checked:scale-100 transition-transform">check</span>
+</div>
+<span class="text-lg text-gray-300 font-medium group-hover/option:text-white peer-checked:text-white transition-colors">
+                            Re-evaluate the release scope immediately
+                        </span>
+</label>
+<!-- Option 4 -->
+<label class="group/option relative flex items-center w-full p-5 rounded-xl border border-white/10 bg-white/[0.02] hover:bg-primary/10 hover:border-primary/60 cursor-pointer transition-all duration-200 hover:shadow-[0_0_25px_rgba(127,0,255,0.15)] active:scale-[0.99]">
+<input class="peer sr-only" name="q3" type="radio"/>
+<div class="absolute inset-0 rounded-xl border-2 border-transparent peer-checked:border-primary peer-checked:shadow-[0_0_30px_rgba(127,0,255,0.2)] transition-all pointer-events-none"></div>
+<div class="flex-shrink-0 size-6 rounded-full border border-gray-600 group-hover/option:border-primary peer-checked:border-primary peer-checked:bg-primary mr-5 flex items-center justify-center transition-colors shadow-inner bg-black/20">
+<span class="material-symbols-outlined text-[16px] text-white opacity-0 peer-checked:opacity-100 font-bold scale-75 peer-checked:scale-100 transition-transform">check</span>
+</div>
+<span class="text-lg text-gray-300 font-medium group-hover/option:text-white peer-checked:text-white transition-colors">
+                            Consult with the product manager for reprioritization
+                        </span>
+</label>
+</div>
+<!-- Footer / Action -->
+<div class="mt-12 flex justify-end items-center relative pt-4">
+<!-- Hand-drawn Arrow Scribble SVG -->
+<!-- Positioned absolutely relative to the button -->
+<div class="absolute right-[200px] top-[15px] hidden md:block opacity-70 pointer-events-none" style="transform: rotate(10deg);">
+<svg fill="none" height="40" viewbox="0 0 100 50" width="80" xmlns="http://www.w3.org/2000/svg">
+<!-- Scribble Path -->
+<path d="M5 25C25 35, 60 40, 90 20" stroke="white" stroke-dasharray="3 3" stroke-linecap="round" stroke-width="2"></path>
+<!-- Arrow Head -->
+<path d="M80 15L90 20L85 30" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<button class="relative group/btn overflow-hidden rounded-xl bg-primary text-white font-bold h-14 px-8 flex items-center gap-3 transition-all hover:scale-105 neon-shadow-purple focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-[#0f0f0f]">
+<span class="text-base tracking-wide relative z-10">Next Question</span>
+<span class="material-symbols-outlined relative z-10 transition-transform duration-300 group-hover/btn:translate-x-1">arrow_forward</span>
+<!-- Shine effect on hover -->
+<div class="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent z-0"></div>
+</button>
+</div>
+</div>
+<!-- Context Footer -->
+<div class="flex justify-between items-center text-xs text-gray-600 px-2 font-mono uppercase tracking-wider opacity-60">
+<span>EngAnalytics v2.6.0</span>
+<span>Session ID: 8X9-B2</span>
+</div>
+</div>
+</main>
+</body></html>
