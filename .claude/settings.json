@@ -6,7 +6,12 @@
       "Bash(Scripts/pip install:*)",
       "Bash(.venv/Scripts/pip install:*)",
       "Bash(.venv/Scripts/python -c ':*)",
-      "Bash(npx astro:*)"
+      "Bash(npx astro:*)",
+      "Bash(.venv/Scripts/python -c \"import asyncio; from app.database import engine, Base; from app import models; asyncio.run\\(engine.connect\\(\\)\\)\")",
+      "Bash(.venv/Scripts/uvicorn app.main:app --port 8000)",
+      "Bash(curl -s http://localhost:8000/api/v1/health)",
+      "Bash(.venv/Scripts/pip list:*)",
+      "Bash(.venv/Scripts/pytest tests/ -v --tb=short)"
     ]
   }
 }
