@@ -20,7 +20,8 @@
       "Bash(npm ls:*)",
       "Bash(.venv/Scripts/pytest tests/ -v --tb=short --cov=app --cov-report=term-missing -q)",
       "Bash(.venv/Scripts/pytest tests/ -q --cov=app --cov-report=term-missing)",
-      "Bash(grep -v \"^$\")"
+      "Bash(grep -v \"^$\")",
+      "Bash(.venv/Scripts/pytest tests/ -q --tb=short)"
     ]
   }
 }
