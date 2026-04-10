@@ -16,7 +16,9 @@
       "Bash(grep -E \"\\\\.\\(tsx|ts|astro\\)$\")",
       "Bash(.venv/Scripts/pytest tests/ -v --tb=short -x)",
       "Bash(.venv/Scripts/pytest tests/ --cov=app --cov-report=term-missing --cov-config=pyproject.toml -q)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(npm ls:*)",
+      "Bash(.venv/Scripts/pytest tests/ -v --tb=short --cov=app --cov-report=term-missing -q)"
     ]
   }
 }
