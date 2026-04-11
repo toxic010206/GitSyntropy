@@ -30,7 +30,12 @@
       "Bash(PUBLIC_API_BASE=http://localhost:8000/api/v1 PUBLIC_WS_BASE=ws://localhost:8000 PUBLIC_AUTH_REQUIRED=false PUBLIC_GUEST_TRIAL=true npm run build)",
       "Bash(ls g:/synced-pc/1_Work/projects/GitSyntropy/apps/backend/requirements*.txt)",
       "Bash(PUBLIC_API_BASE=http://localhost:8000/api/v1 PUBLIC_WS_BASE=ws://localhost:8000 PUBLIC_AUTH_REQUIRED=true PUBLIC_GUEST_TRIAL=true npm run build)",
-      "Bash(PUBLIC_API_BASE=https://gitsyntropy.onrender.com/api/v1 PUBLIC_WS_BASE=wss://gitsyntropy.onrender.com PUBLIC_AUTH_REQUIRED=true PUBLIC_GUEST_TRIAL=true npm run build)"
+      "Bash(PUBLIC_API_BASE=https://gitsyntropy.onrender.com/api/v1 PUBLIC_WS_BASE=wss://gitsyntropy.onrender.com PUBLIC_AUTH_REQUIRED=true PUBLIC_GUEST_TRIAL=true npm run build)",
+      "Bash(npx tsc:*)",
+      "Bash(npx --no-install tsc --noEmit)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(node ./node_modules/.bin/tsc --noEmit)",
+      "Bash(node ./node_modules/typescript/bin/tsc --noEmit)"
     ]
   }
 }
