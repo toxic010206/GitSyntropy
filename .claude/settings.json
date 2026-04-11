@@ -28,7 +28,8 @@
       "Bash(.venv/Scripts/python -c \"from app.services import upsert_user_profile, is_superadmin, get_all_users_admin, get_platform_stats, touch_user_last_seen, create_jwt; print\\('services OK'\\); print\\('is_superadmin\\(1mystic\\):', is_superadmin\\('1mystic'\\)\\); print\\('is_superadmin\\(other\\):', is_superadmin\\('other'\\)\\)\")",
       "Bash(.venv/Scripts/python -c \"from app.main import app; routes = [r.path for r in app.routes]; admin_routes = [r for r in routes if 'admin' in r or 'users/me' in r]; print\\('new routes:', admin_routes\\)\")",
       "Bash(PUBLIC_API_BASE=http://localhost:8000/api/v1 PUBLIC_WS_BASE=ws://localhost:8000 PUBLIC_AUTH_REQUIRED=false PUBLIC_GUEST_TRIAL=true npm run build)",
-      "Bash(ls g:/synced-pc/1_Work/projects/GitSyntropy/apps/backend/requirements*.txt)"
+      "Bash(ls g:/synced-pc/1_Work/projects/GitSyntropy/apps/backend/requirements*.txt)",
+      "Bash(PUBLIC_API_BASE=http://localhost:8000/api/v1 PUBLIC_WS_BASE=ws://localhost:8000 PUBLIC_AUTH_REQUIRED=true PUBLIC_GUEST_TRIAL=true npm run build)"
     ]
   }
 }
