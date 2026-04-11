@@ -21,7 +21,8 @@
       "Bash(.venv/Scripts/pytest tests/ -v --tb=short --cov=app --cov-report=term-missing -q)",
       "Bash(.venv/Scripts/pytest tests/ -q --cov=app --cov-report=term-missing)",
       "Bash(grep -v \"^$\")",
-      "Bash(.venv/Scripts/pytest tests/ -q --tb=short)"
+      "Bash(.venv/Scripts/pytest tests/ -q --tb=short)",
+      "Bash(ls g:/synced-pc/1_Work/projects/GitSyntropy/apps/frontend/.env*)"
     ]
   }
 }
