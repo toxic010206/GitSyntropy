@@ -35,7 +35,16 @@
       "Bash(npx --no-install tsc --noEmit)",
       "Bash(./node_modules/.bin/tsc --noEmit)",
       "Bash(node ./node_modules/.bin/tsc --noEmit)",
-      "Bash(node ./node_modules/typescript/bin/tsc --noEmit)"
+      "Bash(node ./node_modules/typescript/bin/tsc --noEmit)",
+      "Bash(du -sh src/*)",
+      "Bash(du -sh public/*)",
+      "Bash(ffmpeg -version)",
+      "Bash(ffmpeg -i demo.gif -vf \"fps=15,scale=1200:-2:flags=lanczos\" -c:v libx264 -preset slow -crf 22 -pix_fmt yuv420p -movflags +faststart -an demo.mp4)",
+      "Bash(ffmpeg -i demo.gif -vf \"fps=15,scale=1200:-2:flags=lanczos\" -c:v libvpx-vp9 -b:v 0 -crf 35 -deadline good -cpu-used 2 -an demo.webm)",
+      "Bash(ffmpeg -ss 0 -i /g/synced-pc/1_Work/projects/GitSyntropy/apps/frontend/public/demo.gif -vframes 1 -vf \"scale=1200:-2\" /g/synced-pc/1_Work/projects/GitSyntropy/apps/frontend/public/demo-poster.jpg -y)",
+      "Bash(ffmpeg -i insights.png -c:v libwebp -quality 82 insights.webp -y)",
+      "Bash(ffmpeg -i sync.png -c:v libwebp -quality 82 sync.webp -y)",
+      "Bash(ls -lh *.webp *.jpg)"
     ]
   }
 }
