@@ -1,11 +1,11 @@
 from datetime import UTC, datetime, timedelta
 import random
 from functools import lru_cache
-from typing import Any, AsyncIterator, TypedDict
+from typing import Any, AsyncIterator, TypedDict, Mapping
 from urllib.parse import urlencode
 from uuid import uuid4
 
-from jose import JWTError, jwt
+from jose import JWTError, jwt  # type: ignore[import-untyped]
 from langgraph.graph import END, START, StateGraph
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -555,7 +555,7 @@ def mock_compatibility_scores(member_id: str, data_mode: str = "full") -> dict[s
     return scores
 
 
-def compatibility(scores_a: dict[str, float | None], scores_b: dict[str, float | None]) -> dict:
+def compatibility(scores_a: Mapping[str, float | None], scores_b: Mapping[str, float | None]) -> dict:
     dim_scores: dict[str, float] = {}
     dim_breakdown: list[dict] = []
     weak: list[str] = []

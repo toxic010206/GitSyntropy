@@ -1,6 +1,5 @@
 """Tests for Feature 8: CAT (Computerized Adaptive Testing) assessment."""
 
-import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app

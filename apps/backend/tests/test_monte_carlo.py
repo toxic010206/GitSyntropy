@@ -1,6 +1,5 @@
 """Tests for Feature 8: Monte Carlo candidate simulation (1 000 iterations)."""
 
-import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app

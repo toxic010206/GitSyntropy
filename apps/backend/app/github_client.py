@@ -12,7 +12,7 @@ from typing import Any
 
 import numpy as np
 from github import Auth, Github, GithubException
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans  # type: ignore[import-untyped]
 
 
 # ---------------------------------------------------------------------------
@@ -62,7 +62,7 @@ def detect_chronotype(commit_hours: list[int]) -> dict[str, Any]:
 
     # Need at least 10 commits for meaningful clustering
     if total < 10:
-        peak_hour = max(range(24), key=lambda h: hist[h])
+        peak_hour = float(max(range(24), key=lambda h: hist[h]))
         return {
             "chronotype": _classify_peak_hour(peak_hour),
             "peak_hour": float(peak_hour),
@@ -113,7 +113,7 @@ class GitHubAnalystClient:
     """Async wrapper around PyGithub (synchronous) using asyncio.to_thread."""
 
     def __init__(self, access_token: str) -> None:
-        self._gh = Github(Auth.Token(access_token), per_page=100)
+        self._gh = Github(auth=Auth.Token(access_token), per_page=100)
 
     async def _run(self, fn, *args, **kwargs):
         """Run a blocking PyGithub call in a thread."""

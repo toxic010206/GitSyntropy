@@ -1,8 +1,6 @@
 """Tests for github_client.py — chronotype detection and GitHubAnalystClient."""
 
-import asyncio
-import math
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -220,7 +218,6 @@ async def test_fetch_collaboration_index_returns_float(mock_gh_user) -> None:
 
 @pytest.mark.asyncio
 async def test_analyze_returns_full_profile(mock_gh_user) -> None:
-    from datetime import UTC, datetime
 
     with patch("app.github_client.Github") as MockGh, patch("app.github_client.Auth"):
         MockGh.return_value.get_user.return_value = mock_gh_user

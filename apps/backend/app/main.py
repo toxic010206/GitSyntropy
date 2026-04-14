@@ -80,7 +80,6 @@ from .services import (
     get_real_scores_for_user,
     is_superadmin,
     list_teams_for_user,
-    mock_compatibility_scores,
     monte_carlo_candidate_simulation,
     remove_team_member,
     save_team_score,
@@ -106,7 +105,7 @@ async def lifespan(_: FastAPI):
 
 app = FastAPI(title=settings.app_name, version=settings.app_version, lifespan=lifespan)
 app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)  # type: ignore[arg-type]
 
 _cors_origins = [
     settings.frontend_url,
@@ -185,13 +184,13 @@ async def mock_analysis(payload: AnalysisRequest) -> AnalysisResponse:
 @limiter.limit("30/minute")
 async def auth_github_start(request: Request) -> GithubAuthStartResponse:
     state = create_oauth_state()
-    return {
-        "provider": "github",
-        "authorization_url": build_github_authorization_url(state),
-        "state": state,
-        "redirect_uri": settings.github_redirect_url,
-        "scopes": settings.github_scope.split(),
-    }
+    return GithubAuthStartResponse(
+        provider="github",
+        authorization_url=build_github_authorization_url(state),
+        state=state,
+        redirect_uri=settings.github_redirect_url,
+        scopes=settings.github_scope.split(),
+    )
 
 
 @app.post(f"{settings.api_prefix}/auth/github/callback", response_model=AuthTokenResponse)

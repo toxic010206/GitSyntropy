@@ -2,13 +2,12 @@ const API_BASE = import.meta.env.PUBLIC_API_BASE ?? "http://localhost:8000/api/v
 
 // Simple in-memory TTL cache for GET requests
 const _cache = new Map<string, { data: unknown; expiresAt: number }>();
-function cached<T>(key: string, ttlMs: number, fn: () => Promise<T>): Promise<T> {
+async function cached<T>(key: string, ttlMs: number, fn: () => Promise<T>): Promise<T> {
   const hit = _cache.get(key);
-  if (hit && hit.expiresAt > Date.now()) return Promise.resolve(hit.data as T);
-  return fn().then((data) => {
-    _cache.set(key, { data, expiresAt: Date.now() + ttlMs });
-    return data;
-  });
+  if (hit && hit.expiresAt > Date.now()) return hit.data as T;
+  const data = await fn();
+  _cache.set(key, { data, expiresAt: Date.now() + ttlMs });
+  return data;
 }
 export function bustCache(keyPrefix?: string) {
   if (!keyPrefix) { _cache.clear(); return; }
